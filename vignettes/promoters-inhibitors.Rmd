@@ -1,0 +1,110 @@
+---
+title: "Promoters and inhibitors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Promoters and inhibitors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "100%",
+  dpi = 96
+)
+```
+
+```{r setup}
+library(pbtm)
+```
+
+Chemical factors can speed up or slow down germination. Hormones are the
+classic example: gibberellin (GA) breaks dormancy and promotes germination,
+while abscisic acid (ABA) induces dormancy and inhibits it. The same threshold
+logic applies: each seed has a threshold dose, and the response rate depends on
+how far the applied dose is from it (Ni and Bradford, 1992, 1993).
+
+Hormone dose responses are usually linear on a log scale, so both models take
+`dose_transform = "log10"`. The threshold parameters (`p_b50`, `i_b50`, and
+`sigma`) are then in log10 dose units.
+
+## Promoters
+
+$$\theta_P = (\log[P] - \log[P_b(g)])\, t_g$$
+
+$$g = \Phi\left(\frac{\log[P] - \theta_P / t_g - \log P_b(50)}{\sigma}\right)$$
+
+`promoter_data` has tomato seeds germinated with three GA concentrations:
+
+```{r}
+plot_germ_data(promoter_data, color = "GermPromoterDosage")
+fit_p <- fit_promoter(promoter_data, dose_transform = "log10")
+fit_p
+autoplot(fit_p)
+```
+
+The median base GA dose is $10^{`r round(coef(fit_p)[["p_b50"]], 3)`}$ =
+`r signif(10^coef(fit_p)[["p_b50"]], 3)` dose units.
+
+The choice of scale matters. On the linear dose scale the fit is much worse,
+and the time constant runs into its upper bound, which pbtm reports as a
+warning:
+
+```{r}
+fit_linear <- fit_promoter(promoter_data)
+c(log10 = fit_p$stats$pseudo_r2, linear = fit_linear$stats$pseudo_r2)
+```
+
+The normalized plot uses the threshold axis $\log[P] - \theta_P / t$:
+
+```{r}
+autoplot(fit_p, type = "normalized")
+```
+
+## Inhibitors
+
+Inhibitors act in the opposite direction: germination slows and declines as the
+dose approaches each seed's inhibitory threshold, so the model uses the upper
+tail of the threshold distribution:
+
+$$\theta_I = (\log[I_b(g)] - \log[I])\, t_g$$
+
+$$g = 1 - \Phi\left(\frac{\log[I] + \theta_I / t_g - \log I_b(50)}{\sigma}\right)$$
+
+`inhibitor_data` has tomato seeds germinated with ABA:
+
+```{r}
+fit_i <- fit_inhibitor(inhibitor_data, dose_transform = "log10")
+fit_i
+autoplot(fit_i)
+autoplot(fit_i, type = "normalized")
+```
+
+Half of the seeds are prevented from germinating at ABA doses above
+`r signif(10^coef(fit_i)[["i_b50"]], 3)` dose units.
+
+## Predicting dose responses
+
+With the fitted model, final germination and germination timing can be
+predicted for untested doses. Pass the untransformed dose; the fit applies its
+own transform:
+
+```{r}
+new <- expand.grid(GermInhibitorDosage = c(0.5, 2, 5), CumTime = c(48, 96, 192))
+cbind(new, CumFraction = round(predict(fit_i, new), 3))
+```
+
+## References
+
+Ni, B.-R., Bradford, K.J. (1992) Quantitative models characterizing seed
+germination responses to abscisic acid and osmoticum. *Plant Physiol.* 98:
+1057–1068. <https://doi.org/10.1104/pp.98.3.1057>
+
+Ni, B.-R., Bradford, K.J. (1993) Germination and dormancy of abscisic acid- and
+gibberellin-deficient mutant tomato seeds: sensitivity of germination to
+abscisic acid, gibberellin, and water potential. *Plant Physiol.* 101:
+607–617. <https://doi.org/10.1104/pp.101.2.607>
