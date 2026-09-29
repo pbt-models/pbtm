@@ -8,8 +8,3 @@ NULL
 
 #' @export
 ggplot2::autoplot
-
-# lazy-loaded package data used inside functions
-#' @importFrom utils globalVariables
-NULL
-globalVariables("pbtm_columns")

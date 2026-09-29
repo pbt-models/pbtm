@@ -30,7 +30,7 @@ validate_germ_data <- function(data, model = NULL, cols = NULL) {
     check_columns(data, needed, m$label)
   }
 
-  spec <- pbtm_columns[pbtm_columns$Type %in% "numeric", ]
+  spec <- numeric_columns()
   problems <- character()
   for (i in seq_len(nrow(spec))) {
     col <- spec$Column[i]
@@ -61,6 +61,16 @@ validate_germ_data <- function(data, model = NULL, cols = NULL) {
 
 # Internal argument checks -----------------------------------------------------
 
+#' @noRd
+#' @description the numeric template columns. Package data must be reached
+#'   with `pbtm::`: lazy-loaded datasets live in the attached package
+#'   environment, not the namespace, so a bare `pbtm_columns` fails when pbtm
+#'   is used via `pbtm::` without `library(pbtm)`.
+numeric_columns <- function() {
+  cols <- pbtm::pbtm_columns
+  cols[cols$Type %in% "numeric", ]
+}
+
 check_data_frame <- function(data, call = rlang::caller_env()) {
   if (!is.data.frame(data)) {
     cli::cli_abort("{.arg data} must be a data frame, not {.obj_type_friendly {data}}.", call = call)
@@ -79,7 +89,7 @@ check_columns <- function(data, needed, what, call = rlang::caller_env()) {
       call = call
     )
   }
-  for (col in intersect(needed, c("CumTime", "CumFraction", "GR", pbtm_columns$Column[pbtm_columns$Type %in% "numeric"]))) {
+  for (col in intersect(needed, c("GR", numeric_columns()$Column))) {
     if (!is.numeric(data[[col]])) {
       cli::cli_abort("Column {.field {col}} must be numeric.", call = call)
     }
