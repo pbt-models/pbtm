@@ -1,0 +1,154 @@
+# pbtm: population-based threshold models of seed germination
+
+pbtm fits population-based threshold (PBT) models to seed germination
+time courses. Each seed has a threshold for a factor such as
+temperature, water potential, a hormone, or aging, and thresholds vary
+normally across the seed population. Fitting the models estimates the
+threshold distribution and the time constant of the response, from which
+germination under other conditions can be predicted.
+
+The package implements the models of the [PBTM
+app](https://github.com/pbt-models/pbtm-app):
+
+| Model | Function |
+|----|----|
+| Thermal time | [`fit_thermal_time()`](https://pbt-models.github.io/pbtm/reference/fit_thermal_time.md) |
+| Hydrotime | [`fit_hydrotime()`](https://pbt-models.github.io/pbtm/reference/fit_hydrotime.md) |
+| Hydrothermal time | [`fit_hydrothermal_time()`](https://pbt-models.github.io/pbtm/reference/fit_hydrothermal_time.md) |
+| Hydropriming | [`fit_hydropriming()`](https://pbt-models.github.io/pbtm/reference/fit_hydropriming.md) |
+| Hydrothermal priming | [`fit_hydrothermal_priming()`](https://pbt-models.github.io/pbtm/reference/fit_hydrothermal_priming.md) |
+| Aging | [`fit_aging()`](https://pbt-models.github.io/pbtm/reference/fit_aging.md) |
+| Promoter (e.g. gibberellin) | [`fit_promoter()`](https://pbt-models.github.io/pbtm/reference/fit_promoter.md) |
+| Inhibitor (e.g. abscisic acid) | [`fit_inhibitor()`](https://pbt-models.github.io/pbtm/reference/fit_inhibitor.md) |
+
+The cumulative models can also be fit as mixtures of seed subpopulations
+(`subpops = 2`, or `"auto"` to choose by AIC). Helpers compute
+germination speeds and rates
+([`germ_speed()`](https://pbt-models.github.io/pbtm/reference/germ_speed.md)),
+pool and clean time courses, and validate data against the PBTM
+template.
+
+## Installation
+
+pbtm is not on CRAN. Install it from GitHub:
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("pbt-models/pbtm")
+```
+
+## Usage
+
+``` r
+
+library(pbtm)
+
+fit <- fit_thermal_time(thermal_time_data)
+fit
+#> <pbtm_fit> Thermal time model
+#>
+#>       t_b theta_t50     sigma
+#>     3.648      1419   0.06734
+#>
+#> n = 100, pseudo-R2 = 0.9903, AIC = -686.8
+
+autoplot(fit)                                        # data and fitted curves
+autoplot(fit, x_scale = "log", y_scale = "probit")   # linearized scales
+autoplot(fit, type = "normalized")                   # all treatments on one line
+```
+
+Start with
+[`vignette("pbtm")`](https://pbt-models.github.io/pbtm/articles/pbtm.md),
+then see the vignette for each model.
+
+# Package index
+
+## Fitting models
+
+Fit a population-based threshold model to germination data.
+
+- [`fit_pbtm()`](https://pbt-models.github.io/pbtm/reference/fit_pbtm.md)
+  : Fit a population-based threshold model
+- [`fit_aging()`](https://pbt-models.github.io/pbtm/reference/fit_aging.md)
+  : Aging model
+- [`fit_hydropriming()`](https://pbt-models.github.io/pbtm/reference/fit_hydropriming.md)
+  : Hydropriming model
+- [`fit_hydrothermal_priming()`](https://pbt-models.github.io/pbtm/reference/fit_hydrothermal_priming.md)
+  : Hydrothermal priming model
+- [`fit_hydrothermal_time()`](https://pbt-models.github.io/pbtm/reference/fit_hydrothermal_time.md)
+  : Hydrothermal time model
+- [`fit_hydrotime()`](https://pbt-models.github.io/pbtm/reference/fit_hydrotime.md)
+  : Hydrotime model
+- [`fit_inhibitor()`](https://pbt-models.github.io/pbtm/reference/fit_inhibitor.md)
+  : Inhibitor model
+- [`fit_promoter()`](https://pbt-models.github.io/pbtm/reference/fit_promoter.md)
+  : Promoter model
+- [`fit_thermal_time()`](https://pbt-models.github.io/pbtm/reference/fit_thermal_time.md)
+  : Thermal time model
+- [`pbtm_models()`](https://pbt-models.github.io/pbtm/reference/pbtm_models.md)
+  : Available population-based threshold models
+
+## Working with fitted models
+
+- [`print(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`summary(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`print(`*`<summary.pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`coef(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`fitted(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`residuals(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`nobs(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  [`predict(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/pbtm_fit-methods.md)
+  : Methods for fitted PBTM models
+- [`autoplot(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/autoplot.pbtm_fit.md)
+  [`plot(`*`<pbtm_fit>`*`)`](https://pbt-models.github.io/pbtm/reference/autoplot.pbtm_fit.md)
+  : Plot a fitted PBTM model
+
+## Germination data
+
+Check, clean, summarize, and plot germination time courses.
+
+- [`validate_germ_data()`](https://pbt-models.github.io/pbtm/reference/validate_germ_data.md)
+  : Check germination data against the PBTM template
+- [`germ_speed()`](https://pbt-models.github.io/pbtm/reference/germ_speed.md)
+  : Germination speed and rate
+- [`rescale_cum_frac()`](https://pbt-models.github.io/pbtm/reference/rescale_cum_frac.md)
+  : Pool germination curves across treatments
+- [`clean_germ_data()`](https://pbt-models.github.io/pbtm/reference/clean_germ_data.md)
+  : Remove repeated cumulative fractions
+- [`calc_cum_frac()`](https://pbt-models.github.io/pbtm/reference/calc_cum_frac.md)
+  : Cumulative germination fractions from seed counts
+- [`plot_germ_data()`](https://pbt-models.github.io/pbtm/reference/plot_germ_data.md)
+  : Plot germination time courses
+
+## Datasets
+
+- [`germination_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`thermal_time_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`thermal_time_subpop_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`hydrotime_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`hydrothermal_time_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`hydropriming_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`hydrothermal_priming_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`aging_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`promoter_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  [`inhibitor_data`](https://pbt-models.github.io/pbtm/reference/pbtm_datasets.md)
+  : Example germination datasets
+- [`pbtm_columns`](https://pbt-models.github.io/pbtm/reference/pbtm_columns.md)
+  : PBTM data template columns
+
+# Articles
+
+### Models
+
+- [Thermal
+  time](https://pbt-models.github.io/pbtm/articles/thermal-time.md):
+- [Hydrotime and hydrothermal
+  time](https://pbt-models.github.io/pbtm/articles/hydrotime.md):
+- [Hydropriming and hydrothermal
+  priming](https://pbt-models.github.io/pbtm/articles/priming.md):
+- [Seed aging](https://pbt-models.github.io/pbtm/articles/aging.md):
+- [Promoters and
+  inhibitors](https://pbt-models.github.io/pbtm/articles/promoters-inhibitors.md):
+- [Seed
+  subpopulations](https://pbt-models.github.io/pbtm/articles/subpopulations.md):
