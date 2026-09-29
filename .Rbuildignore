@@ -2,5 +2,10 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.github$
-^test$
 ^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^DEVELOPMENT\.md$
+^cran-comments\.md$
+^CRAN-SUBMISSION$

@@ -26,7 +26,7 @@ The threshold models assume that one normal distribution of thresholds
 describes the whole seed lot. That is often not true. Commercial lots are
 frequently blends of different productions, and conditions during seed
 development can leave seeds with different dormancy or vigor. A lot like this
-can be modelled as a mixture of distinct subpopulations, each with its own
+can be modeled as a mixture of distinct subpopulations, each with its own
 threshold distribution. Their germination, weighted by each subpopulation's
 share of the lot, adds up to the observed time course (Bello and Bradford,
 2016; Bradford and Bello, 2022). For two subpopulations:

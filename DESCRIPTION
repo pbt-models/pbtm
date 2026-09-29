@@ -3,18 +3,20 @@ Type: Package
 Title: Population-Based Threshold Models of Seed Germination
 Version: 0.3.0
 Authors@R: c(
-    person("Pedro", "Bello", email = "pedrobello@gmail.com", role = "cre"),
+    person("Pedro", "Bello", email = "pedrobello@gmail.com", role = c("aut", "cre")),
     person("Ben", "Bradford", email = "bradfordium@gmail.com", role = "aut"))
 Description: Fits population-based threshold models (PBTMs) to seed
-    germination time courses. Supports thermal time, hydrotime, hydrothermal
-    time, hydropriming, hydrothermal priming, aging, promoter and inhibitor
-    models, optional mixtures of seed subpopulations, germination speed
-    calculations, and plots of the fitted models on linear or linearized
-    (log time, probit fraction) scales.
+    germination time courses, as described by Bradford and Bello (2022)
+    <doi:10.19103/AS.2022.0105.05>. Supports thermal time, hydrotime,
+    hydrothermal time, hydropriming, hydrothermal priming, aging, promoter
+    and inhibitor models, optional mixtures of seed subpopulations,
+    germination speed calculations, and plots of the fitted models on linear
+    or linearized (log time, probit fraction) scales.
 License: MIT + file LICENSE
-URL: https://github.com/pbt-models/pbtm
+URL: https://pbt-models.github.io/pbtm/, https://github.com/pbt-models/pbtm
 BugReports: https://github.com/pbt-models/pbtm/issues
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 4.1.0)

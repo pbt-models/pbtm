@@ -6,11 +6,12 @@
 \alias{pbtm-package}
 \title{pbtm: Population-Based Threshold Models of Seed Germination}
 \description{
-Fits population-based threshold models (PBTMs) to seed germination time courses. Supports thermal time, hydrotime, hydrothermal time, hydropriming, hydrothermal priming, aging, promoter and inhibitor models, optional mixtures of seed subpopulations, germination speed calculations, and plots of the fitted models on linear or linearized (log time, probit fraction) scales.
+Fits population-based threshold models (PBTMs) to seed germination time courses, as described by Bradford and Bello (2022) \doi{10.19103/AS.2022.0105.05}. Supports thermal time, hydrotime, hydrothermal time, hydropriming, hydrothermal priming, aging, promoter and inhibitor models, optional mixtures of seed subpopulations, germination speed calculations, and plots of the fitted models on linear or linearized (log time, probit fraction) scales.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://pbt-models.github.io/pbtm/}
   \item \url{https://github.com/pbt-models/pbtm}
   \item Report bugs at \url{https://github.com/pbt-models/pbtm/issues}
 }
@@ -21,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Pedro Bello \email{pedrobello@gmail.com}
   \item Ben Bradford \email{bradfordium@gmail.com}
 }
 

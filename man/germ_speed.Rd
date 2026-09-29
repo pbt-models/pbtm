@@ -18,7 +18,7 @@ treatment (\code{TrtID}).}
 
 \item{extrapolate}{What to return for a fraction that a group never reaches
 (or that falls before its first observation). If \code{TRUE}, the time of the
-closest observation is returned (the behaviour of earlier versions of pbtm
+closest observation is returned (the behavior of earlier versions of pbtm
 and the PBTM app); if \code{FALSE}, \code{NA}.}
 }
 \value{

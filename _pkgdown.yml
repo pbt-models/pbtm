@@ -1,0 +1,43 @@
+url: https://pbt-models.github.io/pbtm/
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Fitting models
+    desc: Fit a population-based threshold model to germination data.
+    contents:
+      - fit_pbtm
+      - starts_with("fit_")
+      - pbtm_models
+
+  - title: Working with fitted models
+    contents:
+      - pbtm_fit-methods
+      - autoplot.pbtm_fit
+
+  - title: Germination data
+    desc: Check, clean, summarize, and plot germination time courses.
+    contents:
+      - validate_germ_data
+      - germ_speed
+      - rescale_cum_frac
+      - clean_germ_data
+      - calc_cum_frac
+      - plot_germ_data
+
+  - title: Datasets
+    contents:
+      - pbtm_datasets
+      - pbtm_columns
+
+articles:
+  - title: Models
+    navbar: Models
+    contents:
+      - thermal-time
+      - hydrotime
+      - priming
+      - aging
+      - promoters-inhibitors
+      - subpopulations

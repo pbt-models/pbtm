@@ -16,7 +16,7 @@
 #'   treatment (`TrtID`).
 #' @param extrapolate What to return for a fraction that a group never reaches
 #'   (or that falls before its first observation). If `TRUE`, the time of the
-#'   closest observation is returned (the behaviour of earlier versions of pbtm
+#'   closest observation is returned (the behavior of earlier versions of pbtm
 #'   and the PBTM app); if `FALSE`, `NA`.
 #' @return A tibble with the `groups` columns plus `Fraction`, `Time`, and `GR`,
 #'   one row per group and fraction.
