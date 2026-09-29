@@ -1,0 +1,125 @@
+---
+title: "Thermal time"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Thermal time}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "100%",
+  dpi = 96
+)
+```
+
+```{r setup}
+library(pbtm)
+```
+
+## The model
+
+Below the optimum temperature, seeds germinate faster the further the
+temperature `T` exceeds a base temperature `T_b`, below which germination does
+not occur. The *thermal time* to germination of fraction `g` of the population
+is constant:
+
+$$\theta_T(g) = (T - T_b)\, t_g$$
+
+where $t_g$ is the time to germination of fraction `g`. Thermal times vary
+among seeds, following a log-normal distribution with median $\theta_T(50)$
+and standard deviation $\sigma$ (on the log10 scale). The fitted model is
+
+$$g = \Phi\left(\frac{\log_{10}[(T - T_b)\, t_g] - \log_{10}\theta_T(50)}{\sigma}\right)$$
+
+where $\Phi$ is the standard normal cumulative distribution. The model is fit
+across all temperatures at once, so only temperatures at or below the optimum
+should be included.
+
+## Data
+
+`thermal_time_data` has tomato seeds germinated in water at three temperatures:
+
+```{r}
+head(thermal_time_data)
+plot_germ_data(thermal_time_data, color = "GermTemp")
+```
+
+If your data include other treatments (for example several water potentials),
+filter to a single level of those first, e.g. with `subset(data, GermWP == 0)`.
+Otherwise their effects will be attributed to temperature.
+
+## Fitting
+
+```{r}
+fit <- fit_thermal_time(thermal_time_data)
+fit
+summary(fit)
+```
+
+The estimated base temperature is `r round(coef(fit)[["t_b"]], 2)` °C, and half
+of the seeds need `r round(coef(fit)[["theta_t50"]])` degree-hours above it to
+germinate.
+
+```{r}
+autoplot(fit)
+```
+
+## Linearized plots
+
+Because thermal time is log-normally distributed, the fitted time course at each
+temperature is a straight line on a log time axis with a probit (normal
+quantile) fraction axis. These lines are parallel, since every temperature
+shares the same $\sigma$. Points that curve away from their line show where the
+model fits poorly.
+
+```{r}
+autoplot(fit, x_scale = "log", y_scale = "probit")
+```
+
+The normalized plot converts every observation to thermal time,
+$(T - T_b)\,t$, using the estimated base temperature. If the model holds, all
+temperatures collapse onto one line, the population's thermal time
+distribution, and the dashed line marks $\theta_T(50)$:
+
+```{r}
+autoplot(fit, type = "normalized")
+```
+
+## Using the model
+
+The median time to germination at any sub-optimal temperature follows from the
+parameters as $t_{50} = \theta_T(50) / (T - T_b)$:
+
+```{r}
+p <- coef(fit)
+temps <- c(15, 20, 25)
+data.frame(GermTemp = temps, predicted_t50 = p[["theta_t50"]] / (temps - p[["t_b"]]))
+germ_speed(thermal_time_data, 0.5, groups = "GermTemp")
+```
+
+`predict()` gives the full predicted time course for new conditions:
+
+```{r}
+new <- expand.grid(GermTemp = 12, CumTime = c(100, 150, 200, 250))
+cbind(new, CumFraction = predict(fit, new))
+```
+
+To explore alternative parameter values, hold some of them fixed:
+
+```{r}
+fit_thermal_time(thermal_time_data, fixed = list(t_b = 5))
+```
+
+## References
+
+Bradford, K.J., Bello, P. (2022) Applying population-based threshold models to
+quantify and improve seed quality attributes. In J Buitink, O Leprince, eds,
+*Advances in Seed Science and Technology for More Sustainable Crop Production*.
+Burleigh Dodds Science Publishing, Cambridge, UK.
+<https://doi.org/10.19103/AS.2022.0105.05>
