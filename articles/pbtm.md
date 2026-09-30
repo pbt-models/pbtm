@@ -222,7 +222,7 @@ The fit works with the usual model functions:
 
 coef(fit)
 #>     theta_h     psi_b50       sigma 
-#> 117.2436812  -1.3718682   0.1564849
+#> 117.2436813  -1.3718682   0.1564849
 summary(fit)
 #> Hydrotime model
 #> 

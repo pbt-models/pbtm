@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/pbt-models/pbtm/blob/v0.3.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/pbt-models/pbtm/blob/main/DESCRIPTION)
 
 Bello P, Bradford B (2026). *pbtm: Population-Based Threshold Models of
 Seed Germination*. R package version 0.3.0,

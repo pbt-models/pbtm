@@ -35,8 +35,14 @@ pbtm is not on CRAN. Install it from GitHub:
 ``` r
 
 # install.packages("remotes")
-remotes::install_github("pbt-models/pbtm")
+remotes::install_github("pbt-models/pbtm", build_vignettes = TRUE)
 ```
+
+`build_vignettes = TRUE` is needed for
+[`vignette("pbtm")`](https://pbt-models.github.io/pbtm/articles/pbtm.md)
+and friends to work locally; `install_github()` skips vignettes by
+default. The vignettes are also available on the [package
+website](https://pbt-models.github.io/pbtm/articles/).
 
 ## Usage
 
@@ -59,8 +65,10 @@ autoplot(fit, type = "normalized")                   # all treatments on one lin
 ```
 
 Start with
-[`vignette("pbtm")`](https://pbt-models.github.io/pbtm/articles/pbtm.md),
-then see the vignette for each model.
+[`vignette("pbtm")`](https://pbt-models.github.io/pbtm/articles/pbtm.md)
+(or the [Get
+started](https://pbt-models.github.io/pbtm/articles/pbtm.html) page
+online), then see the vignette for each model.
 
 # Package index
 

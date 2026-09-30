@@ -78,7 +78,7 @@ standard errors where they can be computed) and fit statistics.
 fit <- fit_hydrotime(hydrotime_data)
 coef(fit)
 #>     theta_h     psi_b50       sigma 
-#> 117.2436812  -1.3718682   0.1564849 
+#> 117.2436813  -1.3718682   0.1564849 
 summary(fit)
 #> Hydrotime model
 #> 
@@ -92,5 +92,5 @@ summary(fit)
 head(predict(fit, type = "normalized"))
 #> [1] -1.674910 -1.651319 -1.606078 -1.584374 -1.563249 -1.542680
 predict(fit, newdata = data.frame(GermWP = -0.5, CumTime = c(50, 100, 200)))
-#> [1] 2.408966e-21 2.738152e-02 9.660307e-01
+#> [1] 2.408967e-21 2.738152e-02 9.660307e-01
 ```

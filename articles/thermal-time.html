@@ -67,7 +67,7 @@
       <h1>Thermal time</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pbt-models/pbtm/blob/v0.3.0/vignettes/thermal-time.Rmd" class="external-link"><code>vignettes/thermal-time.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pbt-models/pbtm/blob/main/vignettes/thermal-time.Rmd" class="external-link"><code>vignettes/thermal-time.Rmd</code></a></small>
       <div class="d-none name"><code>thermal-time.Rmd</code></div>
     </div>
 
@@ -140,7 +140,7 @@ attributed to temperature.</p>
 <span><span class="co">#&gt; Coefficients:</span></span>
 <span><span class="co">#&gt;            estimate std_error fixed</span></span>
 <span><span class="co">#&gt; t_b       3.648e+00  0.106326 FALSE</span></span>
-<span><span class="co">#&gt; theta_t50 1.419e+03  9.826013 FALSE</span></span>
+<span><span class="co">#&gt; theta_t50 1.419e+03  9.826012 FALSE</span></span>
 <span><span class="co">#&gt; sigma     6.734e-02  0.001165 FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; n = 100, parameters = 3, RSS = 0.09604, AIC = -686.8, pseudo-R2 = 0.9903</span></span></code></pre></div>
@@ -201,9 +201,9 @@ conditions:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">new</span>, CumFraction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">new</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   GermTemp CumTime  CumFraction</span></span>
 <span><span class="co">#&gt; 1       12     100 0.0003132305</span></span>
-<span><span class="co">#&gt; 2       12     150 0.2104641856</span></span>
-<span><span class="co">#&gt; 3       12     200 0.8532827480</span></span>
-<span><span class="co">#&gt; 4       12     250 0.9936092390</span></span></code></pre></div>
+<span><span class="co">#&gt; 2       12     150 0.2104641950</span></span>
+<span><span class="co">#&gt; 3       12     200 0.8532827576</span></span>
+<span><span class="co">#&gt; 4       12     250 0.9936092398</span></span></code></pre></div>
 <p>To explore alternative parameter values, hold some of them fixed:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fit_thermal_time.html">fit_thermal_time</a></span><span class="op">(</span><span class="va">thermal_time_data</span>, fixed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>t_b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>

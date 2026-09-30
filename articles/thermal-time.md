@@ -74,7 +74,7 @@ summary(fit)
 #> Coefficients:
 #>            estimate std_error fixed
 #> t_b       3.648e+00  0.106326 FALSE
-#> theta_t50 1.419e+03  9.826013 FALSE
+#> theta_t50 1.419e+03  9.826012 FALSE
 #> sigma     6.734e-02  0.001165 FALSE
 #> 
 #> n = 100, parameters = 3, RSS = 0.09604, AIC = -686.8, pseudo-R2 = 0.9903
@@ -149,9 +149,9 @@ new <- expand.grid(GermTemp = 12, CumTime = c(100, 150, 200, 250))
 cbind(new, CumFraction = predict(fit, new))
 #>   GermTemp CumTime  CumFraction
 #> 1       12     100 0.0003132305
-#> 2       12     150 0.2104641856
-#> 3       12     200 0.8532827480
-#> 4       12     250 0.9936092390
+#> 2       12     150 0.2104641950
+#> 3       12     200 0.8532827576
+#> 4       12     250 0.9936092398
 ```
 
 To explore alternative parameter values, hold some of them fixed:
